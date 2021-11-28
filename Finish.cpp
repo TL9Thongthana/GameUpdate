@@ -450,7 +450,7 @@ public:
                     this->is_can_use_item = true;
                 }
 
-                if (this->is_can_use_item) { // ����¹�������͡��
+                if (this->is_can_use_item) { // à»ÅÕèÂ¹à»é¹ÊØèÁâÍ¡ÒÊ
                     for (int i = -0; i < 4; i++) {
                         this->piece[i].x = -1;
                         this->piece[i].y = -1;
@@ -458,9 +458,9 @@ public:
 
                     this->is_can_use_item = false;
 
-                    // �������͡����
-                    if (this->level % 2 == 1) this->item_type = ITEM_BOMB_ICON; // ���Դ
-                    if (this->level % 2 == 0) this->item_type = ITEM_LINE_ICON;  // ������
+                    // ÊØèÁàÅ×Í¡äÍà·Á
+                    if (this->level % 2 == 1) this->item_type = ITEM_BOMB_ICON; // ÃÐàºÔ´
+                    if (this->level % 2 == 0) this->item_type = ITEM_LINE_ICON;  // à¤ÅÕÂá¶Ç
 
                     this->item.x = getRandomInt(0, BOARD_WIDTH - 1);
                     this->item.y = 0;
@@ -572,7 +572,7 @@ private:
     void gameMenuUpdate() {
         if (this->game_state != GAME_MENU) return;
 
-        // �ӡ������¹���٨ҡ Input
+        // ·Ó¡ÒÃà»ÅÕèÂ¹àÁ¹Ù¨Ò¡ Input
         if (this->console->getInputVK() == VK_UP) {
             this->menu_select -= 1;
             if (this->menu_select < 0) this->menu_select = 2;
@@ -598,7 +598,7 @@ private:
     void gameMenuDraw() {
         if (this->game_state != GAME_MENU) return;
 
-        // �Ҵ����
+        // ÇÒ´àÁ¹Ù
         this->console->drawText((CONSOLE_WIDTH / 2) - 3, 0, "TETRIS");
 
         this->console->drawTextColor((CONSOLE_WIDTH / 2) - 2, (CONSOLE_HEIGHT / 2) - 5, "PLAY", 10);
@@ -623,7 +623,7 @@ private:
     void gameMenuHighscoreDraw() {
         if (this->game_state != GAME_MENU_HIGHSCORE) return;
 
-        // �Ҵ Highscore
+        // ÇÒ´ Highscore
         this->console->drawText((CONSOLE_WIDTH / 2) - 5, 0, "HIGH SCORE");
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 5, "1.");
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 6, "2.");
@@ -631,7 +631,7 @@ private:
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 8, "4.");
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 9, "5.");
 
-        // �Ҵ ��ª��ͤ�ṹ
+        // ÇÒ´ ÃÒÂª×èÍ¤Ðá¹¹
         this->printHighscore((CONSOLE_WIDTH / 2) - 8, 5, 5);
     }
 
@@ -668,21 +668,21 @@ private:
     void gameEndUpdate() {
         if (this->game_state != GAME_END) return;
 
-        // ��¹
+        // à¢ÕÂ¹
         if ((this->console->getInputAscii() >= 'A' && this->console->getInputAscii() <= 'Z') ||
             (this->console->getInputAscii() >= 'a' && this->console->getInputAscii() <= 'z')) {
             char input_char = this->console->getInputAscii();
             if (this->your_name.size() < 10) this->your_name.push_back(input_char);
         }
 
-        // ź
+        // Åº
         if (this->console->getInputVK() == VK_BACK) {
             if (this->your_name.size() != 0) {
                 this->your_name.erase(this->your_name.end() - 1);
             }
         }
 
-        // �ѹ�֡
+        // ºÑ¹·Ö¡
         if (this->console->getInputVK() == VK_RETURN) {
             this->addHighscore(Highscore(this->your_name, this->end_score));
             this->your_name = "";
@@ -694,7 +694,7 @@ private:
     void gameEndDraw() {
         if (this->game_state != GAME_END) return;
 
-        // �Ҵ Highscore
+        // ÇÒ´ Highscore
         this->console->drawText((CONSOLE_WIDTH / 2) - 5, 0, "HIGH SCORE");
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 3, "1.");
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 4, "2.");
@@ -703,7 +703,7 @@ private:
         this->console->drawText((CONSOLE_WIDTH / 2) - 10, 7, "5.");
         this->printHighscore((CONSOLE_WIDTH / 2) - 8, 3, 5);
 
-        // �Ҵ Enter Name
+        // ÇÒ´ Enter Name
         this->console->drawText((CONSOLE_WIDTH / 2) - 8, 9, "Your score : " + to_string(this->end_score));
         this->console->drawTextColor((CONSOLE_WIDTH / 2) + 5, 9, to_string(this->end_score), 11);
         this->console->drawText((CONSOLE_WIDTH / 2) - 8, 12, "Enter Your Name");
@@ -767,19 +767,19 @@ public:
         ifstream readHighscore("Highscore.txt");
         while (getline(readHighscore, textRead)) {
 
-            // ��ҵ͹�����ѧ��ҹ��� ���� ���ѹ�֡����
+            // ¶éÒµÍ¹¹Õé¡ÓÅÑ§ÍèÒ¹¤èÒ ª×èÍ ãËéºÑ¹·Ö¡ª×èÍ
             if (!is_score) player_read.name = textRead;
             else {
 
-                // �ŧ String �� Int
+                // á»Å§ String à»ç¹ Int
                 stringstream to_convert(textRead);
                 int score_int;
                 to_convert >> score_int;
 
-                // �ѹ�֡��ṹ
+                // ºÑ¹·Ö¡¤Ðá¹¹
                 player_read.score = score_int;
 
-                // �Ѵ��ṹŧ�ҹ������
+                // ÂÑ´¤Ðá¹¹Å§°Ò¹¢éÍÁÙÅ
                 addHighscore(player_read);
             }
 
@@ -791,10 +791,10 @@ public:
 
         for (int i = 0; i < this->highscore_list.size(); i++) {
 
-            // ����ͪ��ͫ�Ӥ�ṹ��� ����ͧ�ѹ�֡
+            // ¶éÒà¨Íª×èÍ«éÓ¤Ðá¹¹«éÓ äÁèµéÍ§ºÑ¹·Ö¡
             if (player.score == this->highscore_list[i].score && player.name == this->highscore_list[i].name) return;
 
-            // ��Ҥ�ṹ���С��� ��ṹ�����˹� i ����Ѵ����ŧ��͹˹�� i
+            // ¶éÒ¤Ðá¹¹àÂÍÐ¡ÇèÒ ¤Ðá¹¹·ÕèµÓáË¹è§ i ãËéÂÑ´ª×èÍÅ§¡èÍ¹Ë¹éÒ i
             if (player.score > this->highscore_list[i].score) {
                 this->highscore_list.insert(this->highscore_list.begin() + i, player);
                 return;
